@@ -1,0 +1,11 @@
+conf.lua -> LOVE configuration
+splash.lua -> splash screen (title + new game)
+game.lua -> actual game
+score.lua -> score screen
+
+flow
+
+start - splash (loads with animation)
+splash - game, score
+score - game, splash
+game - score
