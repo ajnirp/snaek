@@ -1,11 +1,10 @@
-debug = false
-
 require('splash')
 require('game')
-require('credits')
+require('walls')
+require('apple')
 
 function love.load()
-	states = {"game", "credits", "splash"}
+	states = {"game", "splash"}
 
 	-- Load images (global assets)
 	img_fn = {"title"}
@@ -17,17 +16,12 @@ function love.load()
 	end
 
 	-- Play music and loop it
-	music = love.audio.newSource("assets/day.ogg", "stream")
-	music:setLooping(true)
-	love.audio.play(music)
+	-- music = love.audio.newSource("assets/day.ogg", "stream")
+	-- music:setLooping(true)
+	-- love.audio.play(music)
 
 	-- Load eat fruit sound
 	-- eat = love.audio.newSource("assets/shoot.ogg", "static")
-
-	-- Initialize font, and set it
-	font = love.graphics.newFont("assets/fonts/BitDaylong11.TTF", 11*scale)
-	font_big = love.graphics.newFont("assets/fonts/BitDaylong11.TTF", 15*scale)
-	love.graphics.setFont(font)
 
 	-- Set background color
 	love.graphics.setBackgroundColor(255,255,255)
@@ -36,11 +30,11 @@ function love.load()
 	-- Set initial state
 	state = "splash"
 
-	-- Load splash and game
+	-- load all states
 	splash.show_intro = true -- title scrolls in from top
 	splash.load()
-	credits.load()
-	game.load()
+	-- credits.load()
+	-- game.load()
 end
 
 function love.draw()
@@ -63,19 +57,22 @@ function love.update(dt)
 	end
 end
 
-function love.keypressed(key)
-	-- Quit if the escape key is pressed
-	if key == 'escape' then
-		love.event.push('quit')
+function love.keyreleased(key)
+	-- Call the state's keyreleased function
+	for _,st in pairs(states) do
+		if state == st then
+			-- call the appropriate state function
+			_G[state].keyreleased(key)
+		end
 	end
+end
+
+function love.keypressed(key)
 	-- Call the state's keypressed function
 	for _,st in pairs(states) do
 		if state == st then
 			-- call the appropriate state function
 			_G[state].keypressed(key)
 		end
-	end
-	if key == "`" then
-		debug = not debug
 	end
 end

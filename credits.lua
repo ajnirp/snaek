@@ -13,12 +13,15 @@ end
 function credits.update(dt)
 end
 
-function credits.keypressed(key)
+function credits.keyreleased(key)
   if key == 'return' then
     state = 'splash'
     splash.show_intro = false
     splash.load()
   end
+end
+
+function credits.keypressed(key)
 end
 
 -- Draw the title
@@ -30,10 +33,10 @@ end
 -- Show credits
 function credits.show_credits()
   love.graphics.setColor(0,0,0)
-  love.graphics.setFont(font_big)
+  -- love.graphics.setFont(font_big)
   love.graphics.printf("Credits",
     0,100*scale,love.graphics.getWidth(),"center")
-  love.graphics.setFont(font)
+  -- love.graphics.setFont(font)
   love.graphics.printf("Rohan Prinja",
     0,140*scale,love.graphics.getWidth(),"center")
 

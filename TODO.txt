@@ -1,0 +1,5 @@
+moving walls? might not be a good idea
+snake moves faster as time passes
+wall pattern select
+add help screen
+high scores
